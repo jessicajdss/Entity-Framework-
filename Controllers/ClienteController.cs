@@ -47,15 +47,15 @@ namespace PrimeiroEF.Controllers
             if(cliente == null || cliente.Id!=id){
                 return BadRequest();
             }
-            var cli = contexto.ClienteNaBase.FirstOrDefault(x=>x.Id==id);
+            var cli = contexto.ClienteNaBase.Where(x=>x.Id==id).FirstOrDefault();
             if(cli==null)
                 return NotFound();
 
             cli.Id = cliente.Id;
             cli.Nome = cliente.Nome;
             cli.Email = cliente.Email;
-            cliente.Idade = cliente.Idade;
-            cliente.DataCadastro = cliente.DataCadastro;
+            cli.Idade = cliente.Idade;
+            cli.DataCadastro = cliente.DataCadastro;
 
             contexto.ClienteNaBase.Update(cli);
             int rs = contexto.SaveChanges();
